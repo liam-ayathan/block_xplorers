@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import UserInfo from "./components/UserInfo";
 import Web3 from "web3";
+import "./App.css";
 
 function App() {
   const web3 = new Web3(Web3.givenProvider)
@@ -48,16 +49,18 @@ function App() {
       }}
     >
       <table>
-        <h1 style={{ color: "#48FFD5" }}>BLOCK XPLORERS</h1>
-        {/* changed the colour */}
-        <Button
-          variant="primary"
-          disabled={isLoading}
-          onClick={!isLoading ? handleClick : null}
-        >
-          {isLoading ? "Loading…" : "Connect Wallet"}
-        </Button>
-        <UserInfo account={account} currentNetworkId={currentNetworkId} />
+        <span className="font-link">
+          <h1 style={{ color: "#48FFD5" }}>BLOCK XPLORERS</h1>
+          {/* changed the colour */}
+          <Button
+            variant="primary"
+            disabled={isLoading}
+            onClick={!isLoading ? handleClick : null}
+          >
+            {isLoading ? "Loading…" : "Connect Wallet"}
+          </Button>
+          <UserInfo account={account} currentNetworkId={currentNetworkId} />
+        </span>
       </table>
     </div>
   );
