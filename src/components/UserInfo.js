@@ -15,16 +15,19 @@ function UserInfo({account, currentNetworkId}) {
     if (account !== null) {
       return (
         <div>
-          <p>Your account: {account}</p>
-          <p>Current Network: {getNetworkName(currentNetworkId)}</p>
+          <p style={{ color: "#48FFD5" }}>Your account: {account}</p>
+          <p style={{ color: "#48FFD5" }}> Current Network: {getNetworkName(currentNetworkId)} </p>
         </div>
-      )
+      );
     } else {
       return (
         <div>
-          <p>Please connect your Metamask account.</p>
+          <p style={{ color: "#48FFD5" }}> 
+          {/* changed the colour */}
+            Please connect your Metamask account.
+          </p>
         </div>
-      )
+      );
     }
   }
 

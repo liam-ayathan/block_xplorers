@@ -37,18 +37,30 @@ function App() {
   const handleClick = () => setLoading(true);
 
   return (
-    <div className="container text-center">
-      <h1>BLOCK XPLORERS</h1>
-      <Button
-        variant="primary"
-        disabled={isLoading}
-        onClick={!isLoading ? handleClick : null}
-      >
-        {isLoading ? 'Loading…' : 'Connect Wallet'}
-      </Button>
-      <UserInfo account={account} currentNetworkId={currentNetworkId}/>
+    <div
+      className="container text-center"
+      // centered the div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <table>
+        <h1 style={{ color: "#48FFD5" }}>BLOCK XPLORERS</h1>
+        {/* changed the colour */}
+        <Button
+          variant="primary"
+          disabled={isLoading}
+          onClick={!isLoading ? handleClick : null}
+        >
+          {isLoading ? "Loading…" : "Connect Wallet"}
+        </Button>
+        <UserInfo account={account} currentNetworkId={currentNetworkId} />
+      </table>
     </div>
-  )
+  );
 }
 
 export default App;

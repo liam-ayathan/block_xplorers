@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+document.body.style = "background: #051D31;";
 
 ReactDOM.render(
   <React.StrictMode>
