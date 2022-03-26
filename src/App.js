@@ -41,20 +41,36 @@ function App() {
   return (
     <div className="d-flex align-items-center vh-100">
       <div className="container text-center">
-        <div className="row"><h1>BLOCK XPLORERS</h1></div>
+        <div className="container m-3 p-3">
+          <h1>BLOCK XPLORERS</h1>
+        </div>
 
-        <div className="row">
+
+        <div className="container m-3 p-3 section_area">
+          <h2 className="desc">Step 1: Select a side-chain.</h2>
+          <p className="desc">Lorem</p>
+        </div>
+
+        <div className="container m-3 p-3 section_area">
           <div className="mb-3">
             <Button variant="primary" disabled={isLoading} onClick={!isLoading ? handleClick : null}>
               {isLoading ? "Loading…" : "Connect Wallet"}
             </Button>
           </div>
+
+          <div className="mb-3"><UserInfo account={account} currentNetworkId={currentNetworkId} /></div>
+
+          <div>
+            <ChainSelect currentNetworkId={currentNetworkId}></ChainSelect>
+          </div>
         </div>
 
-        <div className="row"><UserInfo account={account} currentNetworkId={currentNetworkId} /></div>
-
-        <div className="row">
-          <ChainSelect currentNetworkId={currentNetworkId}></ChainSelect>
+        <div className="container m-3 p-3 section_area">
+          <h2 className="desc">Step 2: Deploy your contract.</h2>
+          <p className="desc">Lorem</p>
+        </div>
+        <div className="container m-3 p-3 section_area">
+          <p>lorem</p>
         </div>
       </div>
 

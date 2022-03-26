@@ -15,14 +15,14 @@ function UserInfo({account, currentNetworkId}) {
     if (account !== null) {
       return (
         <div>
-          <p>Your account: {account}</p>
-          <p> Current Network: {getNetworkName(currentNetworkId)} </p>
+          <p className="desc">Your account: {account}</p>
+          <p className="desc"> Current Network: {getNetworkName(currentNetworkId)} </p>
         </div>
       );
     } else {
       return (
         <div>
-          <p> 
+          <p className="desc"> 
             Please connect your Metamask account.
           </p>
         </div>

@@ -3,6 +3,16 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.section_area {
+  background-color: cadetblue;
+  border: 1px black solid;
+  border-radius: 10px;
+}
+
+.desc {
+  color: black;
+}
+
 .btn.btn-primary:disabled{
   background-color: #ff0000;
 }
