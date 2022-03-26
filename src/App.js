@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {Button} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import UserInfo from "./components/UserInfo";
+import ChainSelect from "./components/ChainSelect";
 import Web3 from "web3";
 import "./App.css";
 
@@ -9,7 +10,7 @@ function App() {
   const [account, setAccount] = useState(null);
   const [currentNetworkId, setNetworkId] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  
+
   // Functions
   async function connectWallet() {
     const accounts = await web3.eth.requestAccounts();
@@ -28,41 +29,37 @@ function App() {
   }, [isLoading]);
 
   // Event Handlers
-  window.ethereum.on('accountsChanged', () => {connectWallet()})
+  window.ethereum.on('accountsChanged', () => { connectWallet() })
   window.ethereum.on('networkChanged', () => {
     web3.eth.net.getId().then((Response) => {
       setNetworkId(Response)
     })
   })
-  
+
   const handleClick = () => setLoading(true);
 
   return (
-    <div
-      className="container text-center"
-      // centered the div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
-      <table>
-        <span className="font-link">
-          <h1 style={{ color: "#48FFD5" }}>BLOCK XPLORERS</h1>
-          {/* changed the colour */}
-          <Button
-            variant="primary"
-            disabled={isLoading}
-            onClick={!isLoading ? handleClick : null}
-          >
-            {isLoading ? "Loading…" : "Connect Wallet"}
-          </Button>
-          <UserInfo account={account} currentNetworkId={currentNetworkId} />
-        </span>
-      </table>
+    <div className="d-flex align-items-center vh-100">
+      <div className="container text-center">
+        <div className="row"><h1>BLOCK XPLORERS</h1></div>
+
+        <div className="row">
+          <div className="mb-3">
+            <Button variant="primary" disabled={isLoading} onClick={!isLoading ? handleClick : null}>
+              {isLoading ? "Loading…" : "Connect Wallet"}
+            </Button>
+          </div>
+        </div>
+
+        <div className="row"><UserInfo account={account} currentNetworkId={currentNetworkId} /></div>
+
+        <div className="row">
+          <ChainSelect currentNetworkId={currentNetworkId}></ChainSelect>
+        </div>
+      </div>
+
     </div>
+
   );
 }
 

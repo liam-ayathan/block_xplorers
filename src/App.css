@@ -1,3 +1,8 @@
-.font-link {
+* {
+  color: #48FFD5;
   font-family: 'Roboto', sans-serif;
+}
+
+.btn.btn-primary:disabled{
+  background-color: #ff0000;
 }
