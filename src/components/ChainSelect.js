@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { metamaskChainList } from "./chainList";
+import { metamaskChainList } from "./chainlist";
 
 
 

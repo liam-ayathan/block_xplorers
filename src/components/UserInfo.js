@@ -1,5 +1,5 @@
 import React from "react";
-import { chainIdList } from "./chainList";
+import { chainIdList } from "./chainlist";
 
 function UserInfo({account, currentNetworkId}) {
 

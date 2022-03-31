@@ -37,15 +37,30 @@ export const metamaskChainList = {
     },
 
     avax: {
-        chainId: `0x${Number(43114).toString(16)}`,
-        chainName: "Avalanche C-Chain",
+      // https://docs.avax.network/build/tutorials/smart-contracts/deploy-a-smart-contract-on-avalanche-using-remix-and-metamask/
+      // 43114 --> mainnet for avax:
+      // 43113 --> Avalanche FUJI C-Chain
+
+        // chainId: `0x${Number(43114).toString(16)}`,
+        // chainName: "Avalanche C-Chain",
+        // nativeCurrency: {
+        //   name: "AVAX",
+        //   symbol: "AVAX",
+        //   decimals: 18
+        // },
+        // rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+        // blockExplorerUrls: ["https://snowtrace.io"]
+
+        chainId: `0x${Number(43113).toString(16)}`,
+        chainName: "Avalanche FUJI C-Chain",
         nativeCurrency: {
           name: "AVAX",
           symbol: "AVAX",
           decimals: 18
         },
-        rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-        blockExplorerUrls: ["https://snowtrace.io"]
+        rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
+        blockExplorerUrls: ["https://testnet.snowtrace.io/"],
+        // deployedAddress: "0xFa0F7aF4227664e2585Ea097e08E87D1Fe99CdC3"
     },
 
     bsc: {
@@ -74,3 +89,378 @@ export const metamaskChainList = {
         blockExplorerUrls: ["https://bscscan.com"]
     }
 }
+
+
+
+export const avaxDocumentAddress = "0x5e17b14ADd6c386305A32928F985b29bbA34Eff5"
+// export const avaxDocumentAddress  = "0x64edb395c13D3804498082528b44fc5137A20036"
+export const avaxDocumentAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentIssued",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentRevoked",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkIssue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkRevoke",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentIssued",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentRevoked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "getIssuedBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isIssued",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isIssuedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isRevoked",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isRevokedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "issue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "revoke",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "version",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+
+
+
+
+// avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi
+export const avaxDocumentStoreCreatorAddress = "0x9d83e140330758a8fFD07F8Bd73e86ebcA8a5692"
+export const avaxDocumentStoreCreatorAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "createDocumentStore",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "newDocumentStore",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "DocumentStoreMultiple",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
