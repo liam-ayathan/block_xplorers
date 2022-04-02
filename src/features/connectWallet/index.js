@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import UserInfo from './UserInfo';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateAccount, updateNetworkId } from '../appSlice';
 
@@ -17,17 +16,17 @@ const ConnectWallet = () => {
     setLoading(false)
     updateConnected(true)
   }
+  
+  const handleClick = () => {
+    setLoading(true)
+  };
 
   useEffect(() => {
     if (isLoading) {
       connectWallet()
     }
   });
-
-  const handleClick = () => {
-    setLoading(true)
-  };
-
+  
   return (
     <div>
       <div className="container my-3 p-3 section_area">
@@ -40,7 +39,11 @@ const ConnectWallet = () => {
         </div>
 
         <div className="m-3">
-          <button type='button' className={!isConnected ? 'btn btn-primary' : 'btn btn-primary text-black'}
+          <button type='button' className={            
+            isLoading ? 'btn btn-danger' : 
+            isConnected ? 'btn btn-success' :
+            'btn btn-primary text-black'
+          }
             disabled={isLoading | isConnected}
             onClick={!isLoading ? handleClick : null}>
             {

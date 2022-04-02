@@ -48,12 +48,12 @@ const ConnectChain = () => {
           Object.keys(metamaskChainList).map((chainAlias) => (
             <div key={chainAlias} className='mb-3'>
               <div className='card bg-dark h-100'>
-                <div className='card-header h-50'>{metamaskChainList[chainAlias]['chainName']}</div>
                 <div className='card-body'>
+                  <p>{metamaskChainList[chainAlias]['chainName']}</p>
                   <button type='button' className={isChainDisabled(currentNetworkId, chainAlias) ? 'btn btn-success' : 'btn btn-primary'} 
                   onClick={() => changeNetwork(chainAlias)} 
                   disabled={isChainDisabled(currentNetworkId, chainAlias)}>
-                    {isChainDisabled(currentNetworkId, chainAlias) ? 'Currently on' : 'Switch to'} {chainAlias.toUpperCase()}
+                    {isChainDisabled(currentNetworkId, chainAlias) ? 'Currently connected to' : 'Switch to'} {chainAlias.toUpperCase()}
                   </button>
                 </div>
               </div>
