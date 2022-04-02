@@ -22,6 +22,7 @@ function TestContract() {
     const accounts = await web3.eth.getAccounts()
     console.log(accounts)
     setAccount(accounts[0])
+    console.log(accounts)
     // this.setState({ account: accounts[0] })
     // avaxDocumentAbi, avaxDocumentAddress
 
