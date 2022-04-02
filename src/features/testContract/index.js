@@ -1,45 +1,133 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { avaxDocumentAbi, avaxDocumentAddress, avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi } from "../../assets/ChainList"
+// import Temp from "./components/Temp";
+import { react } from "@babel/types";
+import { useState, useEffect } from 'react'
+import Web3 from "web3";
+import { avaxDocumentAbi, avaxDocumentAddress } from '../../assets/ChainList'
 
 
-const TestContract = () => {
-  const web3 = useSelector((state) => state.appSlice.stateWeb3)
+function TestContract() {
+  const web3 = new Web3(Web3.givenProvider)
+  const [account, setAccount] = useState(null);
   const [avaxContract, setAvaxContract] = useState(null);
   const [avaxContractDetails, setAvaxContractDetails] = useState({ "owner": null });
   // const [avaxContractGenerator, setAvaxContractGenerator] = useState(null);
 
-  async function loadBlockchainData() {
-    const accounts = await web3.eth.getAccounts()
-    const avaxContractnew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
-    console.log("======================")
-    console.log(await avaxContractnew.methods)
-    console.log("======================")
 
+  async function loadBlockchainData() {
+    // let web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+
+    // window web3 detection added:
+    const web3 = new Web3(window.web3.currentProvider);
+
+    const accounts = await web3.eth.getAccounts()
+    console.log(accounts)
+    setAccount(accounts[0])
+    // this.setState({ account: accounts[0] })
+    // avaxDocumentAbi, avaxDocumentAddress
+
+    const avaxContractnew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
+    // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
+    // console.log("contract from avax loaded!!!: " + avaxContractnew.keys())
+    console.log("contract from avax loaded!!!: " + avaxContractnew);
     console.log("contract from avax loaded!!!: " + Object.keys(avaxContractnew));
     console.log("avaxContractnew methods!!!: " + Object.keys(avaxContractnew.methods));
-    // Assumption is there is a problem with the ABI (https://ethereum.stackexchange.com/questions/64823/contract-methods-calls-return-empty-array)
-    // Hard code address first
+    // const avaxOwnercall = await avaxContractnew.methods.owner().call()
+    // const avaxOwnercall = await avaxContractnew.methods.name().call()
+    // console.log("avaxOwnercall!!!: " + Object.keys(avaxOwnercall) +  "vs different account i am in now: " + accounts);
+    // console.log("contract from avax loaded!!!:" + JSON.stringify(avaxContractnew));
 
-    // 1 method to try to show the difference
-    const avaxOwnercall = await Object.keys(avaxContractnew.methods.owner().call())
-    console.log("avaxOwnercall!!!: " + (avaxOwnercall) + "vs different account i am in now: " + accounts);
+
+
+
+
+
+    // PUBLIC METHODS:
+    // name():
+    const avaxNamecall = await avaxContractnew.methods.name().call();
+    console.log("avaxNamecall!!!:" + avaxNamecall);
+
+    // PUBLIC METHODS:
+    // owner():
+    const avaxOwnercall = await avaxContractnew.methods.owner().call();
+    console.log("avaxNamecall!!!:" + avaxOwnercall, " ====> ", accounts[0], " is it the same: ", accounts[0] == avaxOwnercall);
+
+    // PUBLIC METHODS:
+    // version():
+    const avaxVersioncall = await avaxContractnew.methods.version().call();
+    console.log("avaxNamecall!!!:" + avaxVersioncall);
+
+
+    // console.log("0x7465737400000000000000000000000000000000000000000000000000000000")
+    // console.log("length--> ", "0x7465737400000000000000000000000000000000000000000000000000000000".length)
+    // console.log(Web3.utils.asciiToHex("foo"));
+    // console.log(Web3.utils.asciiToHex("bar"));
+
+    const documentContent = Web3.utils.asciiToHex("yayyyyy")
+    const paddedDocumentContent = documentContent.padEnd(66, '0')
+    // const documentContent2 = Web3.toAscii(3)
+    console.log(paddedDocumentContent);
+
+
+
+
     setAvaxContract(avaxContractnew)
+
+
+    // console.log("-------------------------------------avaxContractGeneratornew----------------------------------------");
+    // // avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi
+    // const avaxContractGeneratornew = new web3.eth.Contract(avaxDocumentStoreCreatorAbi, avaxDocumentStoreCreatorAddress)
+    // // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
+    // // console.log("contract from avax loaded!!!: " + avaxContractGeneratornew)
+    // console.log("contract from avaxContractGeneratornew loaded!!!: " + Object.keys(avaxContractGeneratornew));
+    // console.log("avaxContractGeneratornew methods!!!: " + Object.keys(avaxContractGeneratornew.methods));
+    // const currentDocumentaddresses = await avaxContractGeneratornew.methods.DocumentStoreMultiple(1).call()
+    // console.log("currentDocumentaddresses: " + currentDocumentaddresses +  "vs different account i am in now: " + accounts);
+    // // console.log("contract from avax loaded!!!:" + JSON.stringify(avaxContractnew));
+    // setAvaxContractGenerator(avaxContractGeneratornew)
+
   }
 
+
   async function ownerCall() {
-    const avaxOwnercall = await avaxContract.methods.owner.call()
-    console.log("contract keys: " + Object.keys(avaxOwnercall));
-    console.log("=================================")
-    console.log("newww avaxOwnercall!!!: " + avaxOwnercall.methods.owner.call() + "vs different account i am in now: ");
+    const avaxOwnercall = await avaxContract.methods.owner().call()
+    console.log("newww avaxOwnercall!!!: " + avaxOwnercall + "vs different account i am in now: ");
     setAvaxContractDetails({ ...avaxContractDetails, "owner": avaxOwnercall })
     // return avaxOwnercall
   }
 
+
+  async function issuedoc() {
+
+    // issuing method :
+
+    const documentContent = Web3.utils.asciiToHex(3)
+
+    const paddedDocumentContent = documentContent.padEnd(66, '0')
+    // const documentContent2 = Web3.toAscii(3)
+    console.log(paddedDocumentContent);
+    // console.log(documentContent2);
+    // const avaxIssuecall = await avaxContractnew.methods.issue(paddedDocumentContent).send({"from": account});
+
+
+    let tx3
+    // market.connect(buyerAddress).createMarketSale(nftContractAddress, 1, { value: auctionPrice})
+    console.log("what address is being used: " + account)
+    let avaxIssuecall = await avaxContract.methods.issue(documentContent).send({ from: account })
+      .once('receipt', (receipt) => {
+        console.log("connect created!: receipt events: ", JSON.stringify(receipt.events))
+        tx3 = receipt.events
+        return receipt
+      });
+
+
+  }
+
+  // Init
   useEffect(() => {
-    loadBlockchainData()
+    loadBlockchainData();
     console.log("avaxContract loaded:" + avaxContract)
-  }, []);
+  });
+
 
   return (
     <div>
@@ -58,14 +146,14 @@ const TestContract = () => {
             <div className='card-header h-50' >Methods</div>
             <div className='card-body'>
               <button type='button' className='btn btn-primary m-2'
-                onClick={ownerCall}>Get Owner </button>
+                onClick={ownerCall}>Get Owner</button>
               <button type='button' className='btn btn-primary m-2'
-                onClick={ownerCall}>Get Owner </button>
-              <button type='button' className='btn btn-primary m-2'
-                onClick={ownerCall}>Get Owner </button>
-              <button type='button' className='btn btn-primary m-2'
-                onClick={ownerCall}>Get Owner </button>
+                onClick={issuedoc}>Issue Document</button>
               {/* <button type='button' className='btn btn-primary m-2'
+                onClick={ownerCall}>Get Owner</button>
+              <button type='button' className='btn btn-primary m-2'
+                onClick={ownerCall}>Get Owner</button>
+              <button type='button' className='btn btn-primary m-2'
                 onClick={ownerCall}>Get Owner </button>
               <button type='button' className='btn btn-primary m-2'
                 onClick={ownerCall}>Get Owner </button>
@@ -95,4 +183,4 @@ const TestContract = () => {
   )
 }
 
-export default TestContract
+export default TestContract;
