@@ -92,7 +92,7 @@ export const metamaskChainList = {
 
 
 
-export const avaxDocumentAddress = "0x5e17b14ADd6c386305A32928F985b29bbA34Eff5"
+export const avaxDocumentAddress = "0x17caca8719bFb8B808D1A38d3aD3D4B99A3dfD55"
 // export const avaxDocumentAddress  = "0x64edb395c13D3804498082528b44fc5137A20036"
 export const avaxDocumentAbi = [
 	{
@@ -412,9 +412,6 @@ export const avaxDocumentAbi = [
 		"type": "function"
 	}
 ]
-
-
-
 
 
 // avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi

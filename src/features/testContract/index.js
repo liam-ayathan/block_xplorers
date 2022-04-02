@@ -126,7 +126,7 @@ function TestContract() {
   useEffect(() => {
     loadBlockchainData();
     console.log("avaxContract loaded:" + avaxContract)
-  });
+  }, []);
 
 
   return (
