@@ -92,9 +92,35 @@ export const metamaskChainList = {
 
 
 
-export const avaxDocumentAddress = "0x5e17b14ADd6c386305A32928F985b29bbA34Eff5"
+export const avaxDocumentAddress = "0x5E456B3FfD45830e01D6309fDdc5D7E1ACaCb30C"
 // export const avaxDocumentAddress  = "0x64edb395c13D3804498082528b44fc5137A20036"
 export const avaxDocumentAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkIssue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkRevoke",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [
 			{
@@ -133,6 +159,19 @@ export const avaxDocumentAbi = [
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "issue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -152,14 +191,8 @@ export const avaxDocumentAbi = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bytes32[]",
-				"name": "documents",
-				"type": "bytes32[]"
-			}
-		],
-		"name": "bulkIssue",
+		"inputs": [],
+		"name": "renounceOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -167,12 +200,31 @@ export const avaxDocumentAbi = [
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32[]",
-				"name": "documents",
-				"type": "bytes32[]"
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
 			}
 		],
-		"name": "bulkRevoke",
+		"name": "revoke",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -321,19 +373,6 @@ export const avaxDocumentAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "document",
-				"type": "bytes32"
-			}
-		],
-		"name": "issue",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "name",
 		"outputs": [
@@ -361,45 +400,6 @@ export const avaxDocumentAbi = [
 	},
 	{
 		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "document",
-				"type": "bytes32"
-			}
-		],
-		"name": "revoke",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "version",
 		"outputs": [
 			{
@@ -412,8 +412,6 @@ export const avaxDocumentAbi = [
 		"type": "function"
 	}
 ]
-
-
 
 
 
