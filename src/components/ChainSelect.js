@@ -1,13 +1,9 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { metamaskChainList } from "./chainlist";
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { metamaskChainList } from "../assets/ChainList";
 
-
-
-
-
-
-const ChainSelect = ({ currentNetworkId }) => {
+const ChainSelect = () => {
+  const currentNetworkId = useSelector((state) => state.appSlice.networkId)
 
   const changeNetwork = async ( networkName ) => {
     try {
@@ -48,7 +44,6 @@ const ChainSelect = ({ currentNetworkId }) => {
             </div>
         ))
       }
-
 
     </div>
   )

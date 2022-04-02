@@ -1,10 +1,10 @@
 * {
-  color: #48FFD5;
-  font-family: 'Roboto', sans-serif;
+  color: #08F7FE;
+  /* font-family: 'Roboto', sans-serif; */
 }
 
 .section_area {
-  background-color: cadetblue;
+  background-color: #08F7FE;
   border: 1px black solid;
   border-radius: 10px;
 }
@@ -14,5 +14,6 @@
 }
 
 .btn.btn-primary:disabled{
-  background-color: #ff0000;
+  
+  background-color: #00ff04;
 }

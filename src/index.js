@@ -3,12 +3,17 @@ import ReactDOM from 'react-dom';
 import "bootstrap/dist/css/bootstrap.css"
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { store } from './store'
+import { Provider } from 'react-redux'
+import reportWebVitals from './reportWebVitals'
+
 document.body.style = "background: #051D31;";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
