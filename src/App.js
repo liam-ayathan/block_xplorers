@@ -30,32 +30,69 @@ function App() {
 
     const accounts = await web3.eth.getAccounts()
     console.log(accounts)
+    setAccount(accounts[0])
     // this.setState({ account: accounts[0] })
     // avaxDocumentAbi, avaxDocumentAddress
 
     const avaxContractnew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
     // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
     // console.log("contract from avax loaded!!!: " + avaxContractnew.keys())
+    console.log("contract from avax loaded!!!: " + avaxContractnew);
     console.log("contract from avax loaded!!!: " + Object.keys(avaxContractnew));
     console.log("avaxContractnew methods!!!: " + Object.keys(avaxContractnew.methods));
-    const avaxOwnercall = await avaxContractnew.methods.owner().call()
+    // const avaxOwnercall = await avaxContractnew.methods.owner().call()
     // const avaxOwnercall = await avaxContractnew.methods.name().call()
-    console.log("avaxOwnercall!!!: " + avaxOwnercall +  "vs different account i am in now: " + accounts);
+    // console.log("avaxOwnercall!!!: " + Object.keys(avaxOwnercall) +  "vs different account i am in now: " + accounts);
     // console.log("contract from avax loaded!!!:" + JSON.stringify(avaxContractnew));
+
+
+
+
+
+
+    // PUBLIC METHODS:
+    // name():
+    const avaxNamecall = await avaxContractnew.methods.name().call();
+    console.log("avaxNamecall!!!:" + avaxNamecall);
+
+    // PUBLIC METHODS:
+    // owner():
+    const avaxOwnercall = await avaxContractnew.methods.owner().call();
+    console.log("avaxNamecall!!!:" + avaxOwnercall, " ====> ", accounts[0], " is it the same: ", accounts[0] ==  avaxOwnercall);
+
+        // PUBLIC METHODS:
+    // version():
+    const avaxVersioncall = await avaxContractnew.methods.version().call();
+    console.log("avaxNamecall!!!:" + avaxVersioncall);
+
+
+    // console.log("0x7465737400000000000000000000000000000000000000000000000000000000")
+    // console.log("length--> ", "0x7465737400000000000000000000000000000000000000000000000000000000".length)
+    // console.log(Web3.utils.asciiToHex("foo"));
+    // console.log(Web3.utils.asciiToHex("bar"));
+
+    const documentContent = Web3.utils.asciiToHex("yayyyyy")
+    const paddedDocumentContent = documentContent.padEnd(66, '0')
+    // const documentContent2 = Web3.toAscii(3)
+    console.log(paddedDocumentContent);
+
+
+
+
     setAvaxContract(avaxContractnew)
 
 
-    console.log("-------------------------------------avaxContractGeneratornew----------------------------------------");
-    // avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi
-    const avaxContractGeneratornew = new web3.eth.Contract(avaxDocumentStoreCreatorAbi, avaxDocumentStoreCreatorAddress)
-    // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
-    // console.log("contract from avax loaded!!!: " + avaxContractGeneratornew)
-    console.log("contract from avaxContractGeneratornew loaded!!!: " + Object.keys(avaxContractGeneratornew));
-    console.log("avaxContractGeneratornew methods!!!: " + Object.keys(avaxContractGeneratornew.methods));
-    const currentDocumentaddresses = await avaxContractGeneratornew.methods.DocumentStoreMultiple(1).call()
-    console.log("currentDocumentaddresses: " + currentDocumentaddresses +  "vs different account i am in now: " + accounts);
-    // console.log("contract from avax loaded!!!:" + JSON.stringify(avaxContractnew));
-    setAvaxContractGenerator(avaxContractGeneratornew)
+    // console.log("-------------------------------------avaxContractGeneratornew----------------------------------------");
+    // // avaxDocumentStoreCreatorAddress, avaxDocumentStoreCreatorAbi
+    // const avaxContractGeneratornew = new web3.eth.Contract(avaxDocumentStoreCreatorAbi, avaxDocumentStoreCreatorAddress)
+    // // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
+    // // console.log("contract from avax loaded!!!: " + avaxContractGeneratornew)
+    // console.log("contract from avaxContractGeneratornew loaded!!!: " + Object.keys(avaxContractGeneratornew));
+    // console.log("avaxContractGeneratornew methods!!!: " + Object.keys(avaxContractGeneratornew.methods));
+    // const currentDocumentaddresses = await avaxContractGeneratornew.methods.DocumentStoreMultiple(1).call()
+    // console.log("currentDocumentaddresses: " + currentDocumentaddresses +  "vs different account i am in now: " + accounts);
+    // // console.log("contract from avax loaded!!!:" + JSON.stringify(avaxContractnew));
+    // setAvaxContractGenerator(avaxContractGeneratornew)
 
   }
 
@@ -65,6 +102,33 @@ function App() {
     console.log("newww avaxOwnercall!!!: " + avaxOwnercall +  "vs different account i am in now: ");
     setAvaxContractDetails({...avaxContractDetails, "owner": avaxOwnercall})
     // return avaxOwnercall
+  }
+
+
+  async function issuedoc(){
+
+        // issuing method :
+
+        const documentContent = Web3.utils.asciiToHex(3)
+        
+        const paddedDocumentContent = documentContent.padEnd(66, '0')
+        // const documentContent2 = Web3.toAscii(3)
+        console.log(paddedDocumentContent);
+        // console.log(documentContent2);
+        // const avaxIssuecall = await avaxContractnew.methods.issue(paddedDocumentContent).send({"from": account});
+    
+    
+        let tx3
+        // market.connect(buyerAddress).createMarketSale(nftContractAddress, 1, { value: auctionPrice})
+        console.log("what address is being used: " + account)
+        let avaxIssuecall = await avaxContract.methods.issue(documentContent).send({ from: account })
+        .once('receipt', (receipt) => {
+          console.log("connect created!: receipt events: ", JSON.stringify(receipt.events))
+          tx3 = receipt.events
+          return receipt
+     });
+    
+     
   }
 
   // Init
@@ -129,8 +193,8 @@ function App() {
                   onClick={ownerCall} 
                     >Get Owner </button>
                     <button type='button' className='btn btn-primary' 
-                  // onClick={} 
-                    >Switch to </button>
+                  onClick={issuedoc} 
+                    >Issue Document!</button>
                     <button type='button' className='btn btn-primary' 
                   // onClick={} 
                     >Switch to </button>
@@ -144,7 +208,7 @@ function App() {
                     <p>{avaxContractDetails.owner}</p>
                     <button type='button' className='btn btn-primary' 
                   // onClick={} 
-                    >Switch to </button>
+                    >Method</button>
                     <button type='button' className='btn btn-primary' 
                   // onClick={} 
                     >Switch to </button>
