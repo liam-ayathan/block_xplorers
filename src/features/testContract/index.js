@@ -12,6 +12,12 @@ function TestContract() {
   const [avaxContractDetails, setAvaxContractDetails] = useState({ "owner": null });
   // const [avaxContractGenerator, setAvaxContractGenerator] = useState(null);
 
+  // Functions
+  async function connectWallet() {
+    const accounts = await web3.eth.requestAccounts();
+    setAccount(accounts[0])
+    // setLoading(false)
+  }
 
   async function loadBlockchainData() {
     // let web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
@@ -20,10 +26,11 @@ function TestContract() {
     const web3 = new Web3(window.web3.currentProvider);
 
     const accounts = await web3.eth.getAccounts()
-    console.log(accounts)
+    console.log("accounts: ", accounts)
     setAccount(accounts[0])
     // this.setState({ account: accounts[0] })
     // avaxDocumentAbi, avaxDocumentAddress
+    await connectWallet();
 
     const avaxContractnew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
     // const tokenContract = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
@@ -95,11 +102,8 @@ function TestContract() {
     // return avaxOwnercall
   }
 
-
   async function issuedoc() {
-
     // issuing method :
-
     const documentContent = Web3.utils.asciiToHex(3)
 
     const paddedDocumentContent = documentContent.padEnd(66, '0')
@@ -108,26 +112,22 @@ function TestContract() {
     // console.log(documentContent2);
     // const avaxIssuecall = await avaxContractnew.methods.issue(paddedDocumentContent).send({"from": account});
 
-
     let tx3
     // market.connect(buyerAddress).createMarketSale(nftContractAddress, 1, { value: auctionPrice})
     console.log("what address is being used: " + account)
-    let avaxIssuecall = await avaxContract.methods.issue(documentContent).send({ from: account })
+    let avaxIssuecall = await avaxContract.methods.issue(paddedDocumentContent).send({ from: account })
       .once('receipt', (receipt) => {
         console.log("connect created!: receipt events: ", JSON.stringify(receipt.events))
         tx3 = receipt.events
         return receipt
       });
-
-
   }
 
   // Init
   useEffect(() => {
     loadBlockchainData();
     console.log("avaxContract loaded:" + avaxContract)
-  }, []);
-
+  }, [avaxContractDetails]);
 
   return (
     <div>
