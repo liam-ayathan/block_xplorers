@@ -42,7 +42,7 @@ const ConnectWallet = () => {
           <button type='button' className={            
             isLoading ? 'btn btn-danger' : 
             isConnected ? 'btn btn-success' :
-            'btn btn-primary text-black'
+            'btn btn-primary'
           }
             disabled={isLoading | isConnected}
             onClick={!isLoading ? handleClick : null}>

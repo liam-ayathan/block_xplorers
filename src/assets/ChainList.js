@@ -1,8 +1,8 @@
 export const chainIdList = {
     1: "Ethereum Mainnet",
     43113: "Avalanche C-Chain",
-    137: "Polygon Mainnet",
-    56: "Binance Smart Chain Mainnet",
+    80001: "Polygon Mumbai Testnet",
+    97: "Binance Smart Chain Testnet",
 }
 
 // https://chainid.network/chains.json
