@@ -25,15 +25,27 @@ export const metamaskChainList = {
     // },
 
     polygon: {
-        chainId: `0x${Number(137).toString(16)}`,
-        chainName: "Polygon Mainnet",
+        // chainId: `0x${Number(137).toString(16)}`,
+        // chainName: "Polygon Mainnet",
+        // nativeCurrency: {
+        //   name: "MATIC",
+        //   symbol: "MATIC",
+        //   decimals: 18
+        // },
+        // rpcUrls: ["https://polygon-rpc.com/"],
+        // blockExplorerUrls: ["https://etherscan.io"]
+
+		chainId: `0x${Number(80001).toString(16)}`,
+        chainName: "Mumbai Testnet",
         nativeCurrency: {
           name: "MATIC",
           symbol: "MATIC",
           decimals: 18
         },
-        rpcUrls: ["https://polygon-rpc.com/"],
-        blockExplorerUrls: ["https://etherscan.io"]
+        rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+        blockExplorerUrls: ["https://polygonscan.com/"]
+
+
     },
 
     avax: {
@@ -64,29 +76,40 @@ export const metamaskChainList = {
     },
 
     bsc: {
-        chainId: `0x${Number(56).toString(16)}`,
-        chainName: "Binance Smart Chain Mainnet",
+        // chainId: `0x${Number(56).toString(16)}`,
+        // chainName: "Binance Smart Chain Mainnet",
+        // nativeCurrency: {
+        //   name: "Binance Chain Native Token",
+        //   symbol: "BNB",
+        //   decimals: 18
+        // },
+        // rpcUrls: [
+        //   "https://bsc-dataseed1.binance.org",
+        //   "https://bsc-dataseed2.binance.org",
+        //   "https://bsc-dataseed3.binance.org",
+        //   "https://bsc-dataseed4.binance.org",
+        //   "https://bsc-dataseed1.defibit.io",
+        //   "https://bsc-dataseed2.defibit.io",
+        //   "https://bsc-dataseed3.defibit.io",
+        //   "https://bsc-dataseed4.defibit.io",
+        //   "https://bsc-dataseed1.ninicoin.io",
+        //   "https://bsc-dataseed2.ninicoin.io",
+        //   "https://bsc-dataseed3.ninicoin.io",
+        //   "https://bsc-dataseed4.ninicoin.io",
+        //   "wss://bsc-ws-node.nariox.org"
+        // ],
+        // blockExplorerUrls: ["https://bscscan.com"]
+		chainId: `0x${Number(97).toString(16)}`,
+        chainName: "Smart Chain - Testnet",
         nativeCurrency: {
           name: "Binance Chain Native Token",
           symbol: "BNB",
           decimals: 18
         },
         rpcUrls: [
-          "https://bsc-dataseed1.binance.org",
-          "https://bsc-dataseed2.binance.org",
-          "https://bsc-dataseed3.binance.org",
-          "https://bsc-dataseed4.binance.org",
-          "https://bsc-dataseed1.defibit.io",
-          "https://bsc-dataseed2.defibit.io",
-          "https://bsc-dataseed3.defibit.io",
-          "https://bsc-dataseed4.defibit.io",
-          "https://bsc-dataseed1.ninicoin.io",
-          "https://bsc-dataseed2.ninicoin.io",
-          "https://bsc-dataseed3.ninicoin.io",
-          "https://bsc-dataseed4.ninicoin.io",
-          "wss://bsc-ws-node.nariox.org"
+          "https://data-seed-prebsc-1-s1.binance.org:8545/",
         ],
-        blockExplorerUrls: ["https://bscscan.com"]
+        blockExplorerUrls: ["https://testnet.bscscan.com"]
     }
 }
 
@@ -95,6 +118,327 @@ export const metamaskChainList = {
 export const avaxDocumentAddress = "0x17caca8719bFb8B808D1A38d3aD3D4B99A3dfD55"
 // export const avaxDocumentAddress  = "0x64edb395c13D3804498082528b44fc5137A20036"
 export const avaxDocumentAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentIssued",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentRevoked",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkIssue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkRevoke",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentIssued",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentRevoked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "getIssuedBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isIssued",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isIssuedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isRevoked",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isRevokedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "issue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "revoke",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "version",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+
+export const binanceDocumentAddress = "0x5Eb5EEE5355A6A1d71Df344714FB717Cb9cE392c"
+export const binanceDocumentAbi = [
 	{
 		"inputs": [
 			{
@@ -461,3 +805,328 @@ export const avaxDocumentStoreCreatorAbi = [
 		"type": "function"
 	}
 ]
+
+
+// polygonDocumentAddress, polygonDocumentAbi
+export const polygonDocumentAddress = "0xCd24D50966C8da6bDB23C3602D2fE789B3bC64CF"
+// export const avaxDocumentAddress  = "0x64edb395c13D3804498082528b44fc5137A20036"
+export const polygonDocumentAbi = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentIssued",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "DocumentRevoked",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkIssue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32[]",
+				"name": "documents",
+				"type": "bytes32[]"
+			}
+		],
+		"name": "bulkRevoke",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentIssued",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"name": "documentRevoked",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "getIssuedBlock",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isIssued",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isIssuedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "isRevoked",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "uint256",
+				"name": "blockNumber",
+				"type": "uint256"
+			}
+		],
+		"name": "isRevokedBefore",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "issue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "document",
+				"type": "bytes32"
+			}
+		],
+		"name": "revoke",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "version",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+
