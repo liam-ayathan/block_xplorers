@@ -12,7 +12,7 @@ const ConnectChain = () => {
         method: "wallet_addEthereumChain",
         params: [{ ...metamaskChainList[networkName] }]
       });
-      window.location.reload(false);
+      // window.location.reload(false);
     } catch (err) {
       console.log(err.message)
     }

@@ -17,61 +17,67 @@ function TestContract() {
   // networkId: null,
   // account: null,
 
-  const [avaxContract, setAvaxContract] = useState(null);
-  const [avaxContractDetails, setAvaxContractDetails] = useState({ "owner": null });
+  const [contract, setContract] = useState(null);
+  const [contractDetails, setContractDetails] = useState({ "owner": null });
   const [isOwnerCallLoading, setOwnerCallLoading] = useState(false);
   const [ownerCallLoaded, setOwnerCallLoaded] = useState(false)
   const [isIssueDocLoading, setIssueDocLoading] = useState(false);
-  const [currentNetwork, setCurrentNetwork] = useState(null);
+  // const [currentNetwork, setCurrentNetwork] = useState(null);
 
-  async function setNewNetwork(){
-    const networkid  = await web3.eth.net.getId(); 
-    setCurrentNetwork(networkid);
-  }
+  // async function setNewNetwork(){
+  //   const networkid  = await web3.eth.net.getId(); 
+  //   setCurrentNetwork(networkid);
+  // }
 
   async function loadBlockchainData() {
     // const network  = await web3.eth.net.getNetworkType();
-    const newAccounts = await web3.eth.getAccounts();
-    const networkId  = await web3.eth.net.getId(); 
-    console.log("accounts: ", newAccounts)
-    console.log("network: ",networkId)
-    setCurrentNetwork(networkId)
+    // const newAccounts = await web3.eth.getAccounts();
+    // const networkId  = await web3.eth.net.getId(); 
+    // console.log("accounts: ", newAccounts)
+    // console.log("network: ",networkId)
+    // setCurrentNetwork(networkId)
 
 
     // by default its assumed to be avax network:
-    var avaxContractnew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
-    if (networkId == 97){
-    avaxContractnew = new web3.eth.Contract(binanceDocumentAbi, binanceDocumentAddress)
-  }else if(networkId == 80001){
-    avaxContractnew = new web3.eth.Contract(polygonDocumentAbi, polygonDocumentAddress )
-  }
-    console.log("============ Avax contract loaded (methods): " + Object.keys(avaxContractnew.methods) + " ============");
+    var contractNew = new web3.eth.Contract(avaxDocumentAbi, avaxDocumentAddress)
+    if (networkId === 97){
+      contractNew = new web3.eth.Contract(binanceDocumentAbi, binanceDocumentAddress)
+    } else if(networkId === 80001){
+      contractNew = new web3.eth.Contract(polygonDocumentAbi, polygonDocumentAddress )
+    }
+    console.log("============ Avax contract loaded (methods): " + Object.keys(contractNew.methods) + " ============");
 
     // PUBLIC METHODS:
     // name():
-    // const avaxNamecall = await avaxContractnew.methods.name().call();
+    // const avaxNamecall = await contractNew.methods.name().call();
     // console.log("avaxNamecall!!!:" + avaxNamecall);
 
     // PUBLIC METHODS:
     // owner():
-    // const avaxOwnercall = await avaxContractnew.methods.owner().call();
+    // const avaxOwnercall = await contractNew.methods.owner().call();
     // console.log("avaxNamecall!!!:" + avaxOwnercall, " ====> ", account, " is it the same: ", account == avaxOwnercall);
 
     // PUBLIC METHODS:
     // version():
-    // const avaxVersioncall = await avaxContractnew.methods.version().call();
+    // const avaxVersioncall = await contractNew.methods.version().call();
     // console.log("avaxNamecall!!!:" + avaxVersioncall);
 
-    setAvaxContract(avaxContractnew)
+    setContract(contractNew)
   }
 
 
   async function ownerCall() {
-    const avaxOwnercall = await avaxContract.methods.owner().call()
-    console.log("============ Owner call: ", avaxOwnercall, " ============")
-    setAvaxContractDetails({ ...avaxContractDetails, "owner": avaxOwnercall })
-    setOwnerCallLoading(false)
-    setOwnerCallLoaded(true)
+    await contract.methods.owner().call().then((avaxOwnercall) => {
+      console.log("============ Owner call: ", avaxOwnercall, " ============")
+      setContractDetails({ ...contractDetails, "owner": avaxOwnercall })
+      setOwnerCallLoading(false)
+      setOwnerCallLoaded(true)
+    }).catch((err) => {
+      console.log(err)
+      setContractDetails({ ...contractDetails, "owner": null })
+      setOwnerCallLoading(false)
+      setOwnerCallLoaded(false)
+    })
   }
 
   async function issueDoc() {
@@ -81,7 +87,7 @@ function TestContract() {
     console.log("============ Mock document content for issue: ", mockDocument, " ============")
 
     // Issuance of mock document
-    await avaxContract.methods.issue(mockDocument).send({ from: account })
+    await contract.methods.issue(mockDocument).send({ from: account })
       .once('receipt', (receipt) => {
         console.log(receipt)
         console.log("============ Issue doc: receipt events: ", JSON.stringify(receipt.events), " ============")
@@ -92,24 +98,24 @@ function TestContract() {
     reset()
   }
 
-  async function createStore() {
-    // Mock document content
-    var avaxDocumentStoreContract = new web3.eth.Contract(avaxDocumentStoreCreatorAbi, avaxDocumentStoreCreatorAddress)
-    const documentContent = Web3.utils.asciiToHex(3)
-    const mockDocument = documentContent.padEnd(66, '0')
-    console.log("============ Mock document content for issue: ", mockDocument, " ============")
+  // async function createStore() {
+  //   // Mock document content
+  //   var avaxDocumentStoreContract = new web3.eth.Contract(avaxDocumentStoreCreatorAbi, avaxDocumentStoreCreatorAddress)
+  //   const documentContent = Web3.utils.asciiToHex(3)
+  //   const mockDocument = documentContent.padEnd(66, '0')
+  //   console.log("============ Mock document content for issue: ", mockDocument, " ============")
 
-    // Issuance of mock document
-    await avaxDocumentStoreContract.methods.issue(mockDocument).send({ from: account })
-      .once('receipt', (receipt) => {
-        console.log(receipt)
-        console.log("============ Issue doc: receipt events: ", JSON.stringify(receipt.events), " ============")
-        return receipt
-      }).catch((err) => {
-        reset()
-      })
-    reset()
-  }
+  //   // Issuance of mock document
+  //   await avaxDocumentStoreContract.methods.issue(mockDocument).send({ from: account })
+  //     .once('receipt', (receipt) => {
+  //       console.log(receipt)
+  //       console.log("============ Issue doc: receipt events: ", JSON.stringify(receipt.events), " ============")
+  //       return receipt
+  //     }).catch((err) => {
+  //       reset()
+  //     })
+  //   reset()
+  // }
 
   const handleOwnerCall = () => {
     setOwnerCallLoading(true)
@@ -121,27 +127,24 @@ function TestContract() {
     issueDoc()
   }
 
-  const handleCreateDocumentStore = () => {
-    setIssueDocLoading(true)
-    issueDoc()
-  }
+  // const handleCreateDocumentStore = () => {
+  //   setIssueDocLoading(true)
+  //   issueDoc()
+  // }
 
   const reset = () => {
     setIssueDocLoading(false)
     setOwnerCallLoaded(false)
-    setAvaxContractDetails({ ...avaxContractDetails, "owner": null })
+    setContractDetails({ ...contractDetails, "owner": null })
   }
 
   useEffect(() => {
-    setNewNetwork()
+    // setNewNetwork()
     loadBlockchainData();
 
-    console.log("============ AvaxContract loaded: " + avaxContract + " ============")
-  }, [currentNetwork]);
+    console.log("============ contract loaded: " + contract + " ============")
+  }, []);
 
-  useEffect(() => {
-
-  })
 
 
   return (
@@ -184,7 +187,7 @@ function TestContract() {
                 }>
                 {
                   isIssueDocLoading ? "Check your metamask extension for an issuance notification." :
-                  avaxContractDetails.owner !== null ? "Contract owner: " + avaxContractDetails.owner :
+                  contractDetails.owner !== null ? "Contract owner: " + contractDetails.owner :
                   isOwnerCallLoading ? "Retrieving response..." :
                   "Click one of the methods for a response!"
                 }
@@ -217,7 +220,7 @@ function TestContract() {
                 }>
                 {
                   isIssueDocLoading ? "Check your metamask extension for an issuance notification." :
-                  avaxContractDetails.owner !== null ? "Contract owner: " + avaxContractDetails.owner :
+                  contractDetails.owner !== null ? "Contract owner: " + contractDetails.owner :
                   isOwnerCallLoading ? "Retrieving response..." :
                   "Click one of the methods for a response!"
                 }
